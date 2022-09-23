@@ -8,19 +8,17 @@ using Microsoft.EntityFrameworkCore;
 using DeviceManagement_WebApp.Data;
 using DeviceManagement_WebApp.Models;
 using DeviceManagement_WebApp.Repository;
+using System.Linq.Expressions;
 
 namespace DeviceManagement_WebApp.Controllers
 {
     public class ZonesController : Controller
     {
-        private readonly ConnectedOfficeContext _context;
-
         //creating an instance of the IZoneRepository
         private readonly IZoneRepository _zoneRepository;
 
-        public ZonesController(ConnectedOfficeContext context, IZoneRepository zoneRepository)
+        public ZonesController(IZoneRepository zoneRepository)
         {
-            _context = context;
             _zoneRepository = zoneRepository;
         }
 
@@ -120,9 +118,13 @@ namespace DeviceManagement_WebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        //Check to see if a Zone exists for the given ID
         private bool ZoneExists(Guid id)
         {
-            return _context.Zone.Any(e => e.ZoneId == id);
+            if(_zoneRepository.Find(e => e.ZoneId == id) != null)
+                return true;
+
+            return false;
         }
     }
 }

@@ -29,6 +29,7 @@ namespace DeviceManagement_WebApp.Repository
         {
             _context.Set<T>().AddRange(entities);
         }
+
         public IEnumerable<T> Find(Expression<Func<T, bool>> expression)
         {
             return _context.Set<T>().Where(expression);
