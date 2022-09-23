@@ -61,25 +61,15 @@ namespace DeviceManagement_WebApp.Controllers
         {
             zone.ZoneId = Guid.NewGuid();
             _zoneRepository.Add(zone);
-            _zoneRepository.SaveChanges();
+            await _zoneRepository.SaveChanges();
 
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Zones/Edit/5
+        // Change the Zone by ID
         public async Task<IActionResult> Edit(Guid? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var zone = await _context.Zone.FindAsync(id);
-            if (zone == null)
-            {
-                return NotFound();
-            }
-            return View(zone);
+            return await Details(id);
         }
 
         // POST: Zones/Edit/5

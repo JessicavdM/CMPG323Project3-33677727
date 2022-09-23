@@ -3,6 +3,8 @@ using System.Linq.Expressions;
 using System;
 using DeviceManagement_WebApp.Data;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace DeviceManagement_WebApp.Repository
 {
@@ -17,7 +19,7 @@ namespace DeviceManagement_WebApp.Repository
         {
             _context.Set<T>().Add(entity);
         }
-        public async void SaveChanges()
+        public async Task SaveChanges()
         {
             await _context.SaveChangesAsync();
         }
