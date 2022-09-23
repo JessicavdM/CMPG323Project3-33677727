@@ -19,6 +19,8 @@ namespace DeviceManagement_WebApp.Repository
         {
             _context.Set<T>().Add(entity);
         }
+
+        //Saves changes to the data source (uses when entries are added, deleted and edited)
         public async Task SaveChanges()
         {
             await _context.SaveChangesAsync();
@@ -32,11 +34,11 @@ namespace DeviceManagement_WebApp.Repository
             return _context.Set<T>().Where(expression);
         }
 
-        public void UpdateByID(T entity)
+        //Tracks the changes for the given entity
+        public void Update(T entity)
         {
             _context.Update(entity);
         }
-
 
         public IEnumerable<T> GetAll()
         {

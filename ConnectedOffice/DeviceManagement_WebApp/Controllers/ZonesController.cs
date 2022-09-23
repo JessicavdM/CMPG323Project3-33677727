@@ -66,13 +66,13 @@ namespace DeviceManagement_WebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // Change the Zone by ID
+        // Retrieves the Zone by ID in preparation for an Edit
         public async Task<IActionResult> Edit(Guid? id)
         {
             return await Details(id);
         }
 
-        // Changes the Zone by ID
+        // Changes the Zone provided to the method
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, [Bind("ZoneId,ZoneName,ZoneDescription,DateCreated")] Zone zone)
@@ -84,7 +84,7 @@ namespace DeviceManagement_WebApp.Controllers
 
             try
             {
-                _zoneRepository.UpdateByID(zone);
+                _zoneRepository.Update(zone);
                 await _zoneRepository.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
@@ -102,32 +102,21 @@ namespace DeviceManagement_WebApp.Controllers
 
         }
 
-        // GET: Zones/Delete/5
+        // Retrieves Zone to be deleted by ID
         public async Task<IActionResult> Delete(Guid? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var zone = await _context.Zone
-                .FirstOrDefaultAsync(m => m.ZoneId == id);
-            if (zone == null)
-            {
-                return NotFound();
-            }
-
-            return View(zone);
+            return await Details(id);
         }
 
-        // POST: Zones/Delete/5
+        // Deletes a Zone by ID
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var zone = await _context.Zone.FindAsync(id);
-            _context.Zone.Remove(zone);
-            await _context.SaveChangesAsync();
+            var zone = _zoneRepository.GetById(id);
+            _zoneRepository.Remove(zone);
+            await _zoneRepository.SaveChanges();
+
             return RedirectToAction(nameof(Index));
         }
 

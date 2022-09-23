@@ -10,7 +10,7 @@ namespace DeviceManagement_WebApp.Repository
         T GetById(Guid? id);
         IEnumerable<T> GetAll();
         IEnumerable<T> Find(Expression<Func<T, bool>> expression);
-        void UpdateByID(T entity);
+        void Update(T entity);
         void Add(T entity);
         Task SaveChanges();
         void AddRange(IEnumerable<T> entities);
