@@ -31,6 +31,13 @@ namespace DeviceManagement_WebApp.Repository
         {
             return _context.Set<T>().Where(expression);
         }
+
+        public void UpdateByID(T entity)
+        {
+            _context.Update(entity);
+        }
+
+
         public IEnumerable<T> GetAll()
         {
             return _context.Set<T>().ToList();

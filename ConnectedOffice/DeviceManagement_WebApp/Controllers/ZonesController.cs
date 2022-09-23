@@ -72,9 +72,7 @@ namespace DeviceManagement_WebApp.Controllers
             return await Details(id);
         }
 
-        // POST: Zones/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Changes the Zone by ID
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, [Bind("ZoneId,ZoneName,ZoneDescription,DateCreated")] Zone zone)
@@ -86,8 +84,8 @@ namespace DeviceManagement_WebApp.Controllers
 
             try
             {
-                _context.Update(zone);
-                await _context.SaveChangesAsync();
+                _zoneRepository.UpdateByID(zone);
+                await _zoneRepository.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
