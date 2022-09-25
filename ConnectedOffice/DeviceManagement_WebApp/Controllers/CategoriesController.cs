@@ -113,6 +113,7 @@ namespace DeviceManagement_WebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        //Check to see if a Category exists for the given ID
         private bool CategoryExists(Guid id)
         {
             if (_categoryRepository.Find(e => e.CategoryId == id) != null)
