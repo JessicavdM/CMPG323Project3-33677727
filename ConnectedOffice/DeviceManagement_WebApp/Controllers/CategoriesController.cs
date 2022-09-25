@@ -23,13 +23,13 @@ namespace DeviceManagement_WebApp.Controllers
             _categoryRepository = categoryRepository;
         }
 
-        // GET: Categories
+        // Get all Categories
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Category.ToListAsync());
+            return View(_categoryRepository.GetAll());
         }
 
-        // GET: Categories/Details/5
+        // Gat a Category by ID
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -37,8 +37,8 @@ namespace DeviceManagement_WebApp.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Category
-                .FirstOrDefaultAsync(m => m.CategoryId == id);
+            var category = _categoryRepository.GetById(id);
+            
             if (category == null)
             {
                 return NotFound();
