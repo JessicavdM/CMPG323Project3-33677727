@@ -98,32 +98,20 @@ namespace DeviceManagement_WebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Categories/Delete/5
+        // Get Category to be deleted by ID
         public async Task<IActionResult> Delete(Guid? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var category = await _context.Category
-                .FirstOrDefaultAsync(m => m.CategoryId == id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-
-            return View(category);
+            return await Details(id);
         }
 
-        // POST: Categories/Delete/5
+        // Delete a Category by ID
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var category = await _context.Category.FindAsync(id);
-            _context.Category.Remove(category);
-            await _context.SaveChangesAsync();
+            var category = _categoryRepository.GetById(id);
+            _categoryRepository.Remove(category);
+            await _categoryRepository.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
 
