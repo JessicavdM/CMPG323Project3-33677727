@@ -117,7 +117,10 @@ namespace DeviceManagement_WebApp.Controllers
 
         private bool CategoryExists(Guid id)
         {
-            return _context.Category.Any(e => e.CategoryId == id);
+            if (_categoryRepository.Find(e => e.CategoryId == id) != null)
+                return true;
+
+            return false;
         }
     }
 }
