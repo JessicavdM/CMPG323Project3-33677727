@@ -42,7 +42,7 @@ namespace DeviceManagement_WebApp.Repository
             _context.Update(entity);
         }
 
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
             return _context.Set<T>().ToList();
         }
