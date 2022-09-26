@@ -66,7 +66,7 @@ namespace DeviceManagement_WebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Devices/Edit/5
+        //Retrieves the Device by ID in preparation for an Edit
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -74,19 +74,20 @@ namespace DeviceManagement_WebApp.Controllers
                 return NotFound();
             }
 
-            var device = await _context.Device.FindAsync(id);
+            var device = _deviceRepository.GetById(id);
+
             if (device == null)
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName", device.CategoryId);
-            ViewData["ZoneId"] = new SelectList(_context.Zone, "ZoneId", "ZoneName", device.ZoneId);
+            
+            ViewData["CategoryId"] = new SelectList(_deviceRepository.GetCategory(), "CategoryId", "CategoryName", device.CategoryId);
+            ViewData["ZoneId"] = new SelectList(_deviceRepository.GetZone(), "ZoneId", "ZoneName", device.ZoneId);
+
             return View(device);
         }
 
-        // POST: Devices/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Changes the Device provided to the method
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, [Bind("DeviceId,DeviceName,CategoryId,ZoneId,Status,IsActive,DateCreated")] Device device)
@@ -97,8 +98,8 @@ namespace DeviceManagement_WebApp.Controllers
             }
             try
             {
-                _context.Update(device);
-                await _context.SaveChangesAsync();
+                _deviceRepository.Update(device);
+                await _deviceRepository.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -112,7 +113,6 @@ namespace DeviceManagement_WebApp.Controllers
                 }
             }
             return RedirectToAction(nameof(Index));
-
         }
 
         // GET: Devices/Delete/5
