@@ -5,6 +5,7 @@ using DeviceManagement_WebApp.Data;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace DeviceManagement_WebApp.Repository
 {
@@ -41,11 +42,11 @@ namespace DeviceManagement_WebApp.Repository
             _context.Update(entity);
         }
 
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
             return _context.Set<T>().ToList();
         }
-        public T GetById(Guid? id)
+        public virtual T GetById(Guid? id)
         {
             return _context.Set<T>().Find(id);
         }
