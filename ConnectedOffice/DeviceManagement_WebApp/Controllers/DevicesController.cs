@@ -29,7 +29,7 @@ namespace DeviceManagement_WebApp.Controllers
             return View(_deviceRepository.GetAll());
         }
 
-        // GET: Devices/Details/5
+        // Get a Device by ID
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -47,17 +47,15 @@ namespace DeviceManagement_WebApp.Controllers
             return View(device);
         }
 
-        // GET: Devices/Create
+        // Get an empty Device to create a new Device
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName");
-            ViewData["ZoneId"] = new SelectList(_context.Zone, "ZoneId", "ZoneName");
+            ViewData["CategoryId"] = new SelectList(_deviceRepository.GetCategory(), "CategoryId", "CategoryName");
+            ViewData["ZoneId"] = new SelectList(_deviceRepository.GetZone(), "ZoneId", "ZoneName");
             return View();
         }
 
-        // POST: Devices/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Create a new Device
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("DeviceId,DeviceName,CategoryId,ZoneId,Status,IsActive,DateCreated")] Device device)
