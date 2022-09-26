@@ -115,34 +115,20 @@ namespace DeviceManagement_WebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Devices/Delete/5
+        // Retrieves Device to be deleted by ID
         public async Task<IActionResult> Delete(Guid? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var device = await _context.Device
-                .Include(d => d.Category)
-                .Include(d => d.Zone)
-                .FirstOrDefaultAsync(m => m.DeviceId == id);
-            if (device == null)
-            {
-                return NotFound();
-            }
-
-            return View(device);
+            return await Details(id);
         }
 
-        // POST: Devices/Delete/5
+        // Deletes a Device by ID
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var device = await _context.Device.FindAsync(id);
-            _context.Device.Remove(device);
-            await _context.SaveChangesAsync();
+            var device = _deviceRepository.GetById(id);
+            _deviceRepository.Remove(device);
+            await _deviceRepository.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
 
