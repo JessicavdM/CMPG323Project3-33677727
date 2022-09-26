@@ -5,6 +5,7 @@ using DeviceManagement_WebApp.Data;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace DeviceManagement_WebApp.Repository
 {
