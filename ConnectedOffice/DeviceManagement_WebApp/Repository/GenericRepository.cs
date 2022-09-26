@@ -46,7 +46,7 @@ namespace DeviceManagement_WebApp.Repository
         {
             return _context.Set<T>().ToList();
         }
-        public T GetById(Guid? id)
+        public virtual T GetById(Guid? id)
         {
             return _context.Set<T>().Find(id);
         }

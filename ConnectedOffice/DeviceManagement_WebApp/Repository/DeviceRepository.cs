@@ -1,6 +1,7 @@
 ﻿using DeviceManagement_WebApp.Data;
 using DeviceManagement_WebApp.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,6 +17,14 @@ namespace DeviceManagement_WebApp.Repository
         {
             var connectedOfficeContext = _context.Device.Include(d => d.Category).Include(d => d.Zone);
             return connectedOfficeContext.ToList();
+        }
+
+        public override Device GetById(Guid? id)
+        {
+            return _context.Device
+                .Include(d => d.Category)
+                .Include(d => d.Zone)
+                .FirstOrDefault(m => m.DeviceId == id);
         }
     }
 }
