@@ -132,9 +132,13 @@ namespace DeviceManagement_WebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        //Check to see if a Device exists for the given ID
         private bool DeviceExists(Guid id)
         {
-            return _context.Device.Any(e => e.DeviceId == id);
+            if (_deviceRepository.Find(e => e.DeviceId == id) != null)
+                return true;
+
+            return false;
         }
     }
 }
