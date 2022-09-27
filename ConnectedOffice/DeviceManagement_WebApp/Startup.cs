@@ -41,13 +41,13 @@ namespace DeviceManagement_WebApp
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            //adding Generic Repository services
+            //adding Generic Repository services (to cater for Dependency Injection)
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            //adding Zone Repository services
+            //adding Zone Repository services (to cater for Dependency Injection)
             services.AddTransient<IZoneRepository, ZoneRepository>();
-            //adding Category Repository services
+            //adding Category Repository services (to cater for Dependency Injection)
             services.AddTransient<ICategoryRepository, CategoryRepository>();
-            //adding Device Repository services
+            //adding Device Repository services (to cater for Dependency Injection)
             services.AddTransient<IDeviceRepository, DeviceRepository>();
         }
 

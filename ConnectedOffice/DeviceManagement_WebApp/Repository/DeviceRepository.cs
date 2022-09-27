@@ -31,13 +31,13 @@ namespace DeviceManagement_WebApp.Repository
                 .FirstOrDefault(m => m.DeviceId == id);
         }
 
-        //Returns an Enumarable object of Category
+        //Returns an Enumarable object of Categories related to the DBContext
         public IEnumerable<Category> GetCategory()
         {
             return _context.Category;
         }
 
-        //Returns an Enumarable object of Zone
+        //Returns an Enumarable object of Zones related to the DBContext
         public IEnumerable<Zone> GetZone()
         {
             return _context.Zone;
