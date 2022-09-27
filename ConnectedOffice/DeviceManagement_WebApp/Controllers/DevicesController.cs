@@ -13,13 +13,11 @@ namespace DeviceManagement_WebApp.Controllers
 {
     public class DevicesController : Controller
     {
-        private readonly ConnectedOfficeContext _context;
         //Initiate an instance of IDeviceRepository
         private readonly IDeviceRepository _deviceRepository;
 
-        public DevicesController(ConnectedOfficeContext context, IDeviceRepository deviceRepository)
+        public DevicesController(IDeviceRepository deviceRepository)
         {
-            _context = context;
             _deviceRepository = deviceRepository;   
         }
 
